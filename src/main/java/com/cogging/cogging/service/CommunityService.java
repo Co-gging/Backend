@@ -6,11 +6,14 @@ import com.cogging.cogging.entity.UserEntity;
 import com.cogging.cogging.repository.CommunityRepository;
 import com.cogging.cogging.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -33,5 +36,28 @@ public class CommunityService {
 
         CommunityEntity communityEntity = communityDto.toEntity();
         communityRepository.save(communityEntity);
+    }
+
+    @Transactional
+    public String getList() {
+        JSONObject communityList = new JSONObject();
+        JSONArray communityArr = new JSONArray();
+
+        List<CommunityEntity> communityEntities = communityRepository.findAll();
+
+        for(CommunityEntity communityEntity : communityEntities){
+            JSONObject post = new JSONObject();
+
+            post.put("id", communityEntity.getId());
+            post.put("title", communityEntity.getTitle());
+            post.put("content", communityEntity.getContent());
+            post.put("date", communityEntity.getCreatedAt());
+            post.put("comments", communityEntity.getComments());
+
+            communityArr.put(post);
+        }
+        communityList.put("list", communityArr);
+
+        return communityList.toString();
     }
 }
