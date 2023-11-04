@@ -26,8 +26,8 @@ public class CommunityService {
         UserEntity user = userRepository.findById(Integer.parseInt(param.get("id")))
                 .orElseThrow(() -> new RuntimeException());
 
-        LocalDateTime date = LocalDateTime.parse(param.get("date"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        CommunityDto communityDto = new CommunityDto(param.get("title"), param.get("content"), date, 0);
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        CommunityDto communityDto = new CommunityDto(param.get("title"), param.get("content"), currentDateTime, 0);
 
         communityDto.setUser(user);
 
