@@ -1,21 +1,12 @@
 package com.cogging.cogging.controller;
 
 
-import com.cogging.cogging.dto.CommunityDto;
-import com.cogging.cogging.entity.CommunityEntity;
 import com.cogging.cogging.service.CommunityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -38,6 +29,14 @@ public class CommunityController {
         String communityList = communityService.getList();
 
         return new ResponseEntity<>(communityList, HttpStatus.OK);
+    }
+
+    @GetMapping("/api/community")
+    public ResponseEntity<Object> post(@RequestParam Integer id){
+
+        String post = communityService.getPost(id);
+
+        return new ResponseEntity<>(post, HttpStatus.OK);
     }
 
 }
