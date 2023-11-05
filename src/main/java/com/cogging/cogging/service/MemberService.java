@@ -2,10 +2,12 @@ package com.cogging.cogging.service;
 
 import com.cogging.cogging.dto.MemberSingUpDto;
 import com.cogging.cogging.entity.Member;
+import com.cogging.cogging.exceptions.BaseException;
 import com.cogging.cogging.jwt.JwtTokenProvider;
 import com.cogging.cogging.repository.MemberRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,5 +40,10 @@ public class MemberService {
         }
 
         return jwtTokenProvider.createToken(loginMember.getUsername());
+    }
+
+    public boolean checkEmail(String email) {
+        Optional<Member> member = memberRepository.findByEmail(email);
+        return member.isPresent();
     }
 }

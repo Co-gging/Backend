@@ -34,5 +34,10 @@ public class MemberController {
 //        }
     }
 
+    @PostMapping("/check-email")
+    public Map<String, Boolean> checkEmail(@RequestBody Map<String, String> validEmail){
+        return Map.of("isExist", memberService.checkEmail(validEmail.get("email")));
+    }
+
 
 }
