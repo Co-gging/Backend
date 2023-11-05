@@ -60,4 +60,26 @@ public class CommunityService {
 
         return communityList.toString();
     }
+
+    @Transactional
+    public String getPost(Integer id){
+
+        CommunityEntity community = communityRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException());
+
+
+        JSONObject post = new JSONObject();
+
+        post.put("id", community.getId());
+        post.put("title", community.getTitle());
+        post.put("content", community.getContent());
+        post.put("date", community.getCreatedAt());
+        post.put("comments", community.getComments());
+
+        UserEntity user = community.getUser();
+        post.put("writer", user.getNickname());
+        post.put("profile_image", user.getProfile_img());
+
+        return post.toString();
+    }
 }
