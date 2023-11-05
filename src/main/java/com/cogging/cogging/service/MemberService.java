@@ -33,10 +33,10 @@ public class MemberService {
 
     public String login(Map<String, String> member) {
         Member loginMember = memberRepository.findByEmail(member.get("email"))
-                .orElseThrow(() -> new EntityNotFoundException("가입되지 않은 Email 입니다."));
+                .orElseThrow(() -> new BaseException("존재하지 않는 이메일입니다.", null ,HttpStatus.NOT_FOUND));
 
         if (!passwordEncoder.matches(member.get("password"), loginMember.getPassword())) {
-            throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+            throw new BaseException("잘못된 비밀번호입니다.", null, HttpStatus.CONFLICT);
         }
 
         return jwtTokenProvider.createToken(loginMember.getUsername());
