@@ -1,5 +1,6 @@
 package com.cogging.cogging.service;
 
+import com.cogging.cogging.dto.MemberDto;
 import com.cogging.cogging.dto.MemberSingUpDto;
 import com.cogging.cogging.entity.Member;
 import com.cogging.cogging.exceptions.BaseException;
@@ -33,10 +34,10 @@ public class MemberService {
 
     public String login(Map<String, String> member) {
         Member loginMember = memberRepository.findByEmail(member.get("email"))
-                .orElseThrow(() -> new BaseException("존재하지 않는 이메일입니다.", null ,HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new BaseException("존재하지 않는 이메일입니다.", null, HttpStatus.NOT_FOUND));
 
         if (!passwordEncoder.matches(member.get("password"), loginMember.getPassword())) {
-            throw new BaseException("잘못된 비밀번호입니다.", null, HttpStatus.CONFLICT);
+            throw new BaseException("잘못된 비밀번호입니다.", null, null);
         }
 
         return jwtTokenProvider.createToken(loginMember.getUsername());
@@ -50,5 +51,12 @@ public class MemberService {
     public boolean checkNickname(String nickname) {
         Optional<Member> member = memberRepository.findByNickname(nickname);
         return member.isPresent();
+    }
+
+    public MemberDto getMember(int memberId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new BaseException("존재하지 않는 유저입니다", null, HttpStatus.NOT_FOUND));
+
+        return member.toMemberDto();
     }
 }
