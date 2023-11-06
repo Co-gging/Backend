@@ -48,6 +48,7 @@ public class SecurityConfig {
                                 .requestMatchers("/api/check-nickname").permitAll()
                                 .requestMatchers("/api/members/signup").permitAll()
                                 .requestMatchers("/api/members/login").permitAll()
+                                .requestMatchers("/api/members/list").permitAll()
                                 .requestMatchers("/error").permitAll()
                                 .anyRequest().authenticated()
                 )

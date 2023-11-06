@@ -8,11 +8,14 @@ import com.cogging.cogging.jwt.JwtTokenProvider;
 import com.cogging.cogging.repository.MemberRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -62,5 +65,17 @@ public class MemberService {
                 .orElseThrow(() -> new BaseException("존재하지 않는 유저입니다", null, HttpStatus.NOT_FOUND));
 
         return member.toMemberDto();
+    }
+
+    public List<MemberDto> getMemberList() {
+        Sort sort = Sort.by(Sort.Order.asc("id"));
+        List<Member> memberList = memberRepository.findAll(sort);
+        List<MemberDto> memberDtoList = new ArrayList<>();
+
+        for (Member member : memberList) {
+            memberDtoList.add(member.toMemberDto());
+        }
+
+        return memberDtoList;
     }
 }

@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -40,6 +41,11 @@ public class MemberController {
     @GetMapping("/member")
     public MemberDto getMember(@AuthenticationPrincipal Member member){
         return memberService.getMember(member.getId());
+    }
+
+    @GetMapping("/members/list")
+    public List<MemberDto> getMemberList(){
+        return memberService.getMemberList();
     }
 
 
