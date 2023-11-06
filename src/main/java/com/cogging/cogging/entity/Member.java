@@ -15,11 +15,9 @@ import java.util.Collections;
 @Entity
 @Table(name = "member")
 @Getter
-@Setter
-@ToString
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Member implements UserDetails {
 
     @Id
@@ -37,7 +35,6 @@ public class Member implements UserDetails {
 
     private int participation;
 
-    @Builder
     public MemberDto toMemberDto(){
         return MemberDto.builder()
                 .email(email)
