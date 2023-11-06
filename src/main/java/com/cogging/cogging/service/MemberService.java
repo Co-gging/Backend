@@ -26,6 +26,10 @@ public class MemberService {
     private final JwtTokenProvider jwtTokenProvider;
 
     public int signUp(MemberSingUpDto requestDto){
+        if(checkEmail(requestDto.getEmail())){
+            throw new BaseException("이미 존재하는 이메일입니다.", null, null);
+        }
+
         Member newMember = memberRepository.save(requestDto.toEntity());
         newMember.encodePassword(passwordEncoder);
 
