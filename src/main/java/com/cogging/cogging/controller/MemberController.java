@@ -39,5 +39,10 @@ public class MemberController {
         return Map.of("isExist", memberService.checkEmail(validEmail.get("email")));
     }
 
+    @PostMapping("/check-nickname")
+    public Map<String, Boolean> checkNickname(@RequestBody Map<String, String> validNickname){
+        return Map.of("isExist", memberService.checkNickname(validNickname.get("nickname")));
+    }
+
 
 }

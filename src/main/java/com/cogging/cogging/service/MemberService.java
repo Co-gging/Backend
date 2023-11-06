@@ -46,4 +46,9 @@ public class MemberService {
         Optional<Member> member = memberRepository.findByEmail(email);
         return member.isPresent();
     }
+
+    public boolean checkNickname(String nickname) {
+        Optional<Member> member = memberRepository.findByNickname(nickname);
+        return member.isPresent();
+    }
 }
