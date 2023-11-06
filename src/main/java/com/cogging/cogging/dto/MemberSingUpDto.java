@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 public class MemberSingUpDto {
     private String email;
 
@@ -19,7 +18,6 @@ public class MemberSingUpDto {
 
     private int profileImage;
 
-    @Builder
     public Member toEntity(){
         return Member.builder()
                 .email(email)

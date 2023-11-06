@@ -1,5 +1,6 @@
 package com.cogging.cogging.entity;
 
+import com.cogging.cogging.dto.MemberDto;
 import jakarta.persistence.Entity;
 import lombok.*;
 import org.springframework.context.annotation.Bean;
@@ -14,11 +15,9 @@ import java.util.Collections;
 @Entity
 @Table(name = "member")
 @Getter
-@Setter
-@ToString
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Member implements UserDetails {
 
     @Id
@@ -35,6 +34,15 @@ public class Member implements UserDetails {
     private int profileImage;
 
     private int participation;
+
+    public MemberDto toMemberDto(){
+        return MemberDto.builder()
+                .email(email)
+                .nickname(nickname)
+                .profileImage(profileImage)
+                .participation(participation)
+                .build();
+    }
 
     @Bean
     public void encodePassword(PasswordEncoder passwordEncoder){

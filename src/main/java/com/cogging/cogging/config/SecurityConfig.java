@@ -45,8 +45,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorizeRequests) ->
                         authorizeRequests
                                 .requestMatchers("/api/check-email").permitAll()
+                                .requestMatchers("/api/check-nickname").permitAll()
                                 .requestMatchers("/api/members/signup").permitAll()
                                 .requestMatchers("/api/members/login").permitAll()
+                                .requestMatchers("/api/members/list").permitAll()
                                 .requestMatchers("/error").permitAll()
                                 .anyRequest().authenticated()
                 )
