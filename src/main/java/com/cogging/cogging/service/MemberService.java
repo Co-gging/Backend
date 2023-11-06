@@ -2,10 +2,12 @@ package com.cogging.cogging.service;
 
 import com.cogging.cogging.dto.MemberSingUpDto;
 import com.cogging.cogging.entity.Member;
+import com.cogging.cogging.exceptions.BaseException;
 import com.cogging.cogging.jwt.JwtTokenProvider;
 import com.cogging.cogging.repository.MemberRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,12 +33,17 @@ public class MemberService {
 
     public String login(Map<String, String> member) {
         Member loginMember = memberRepository.findByEmail(member.get("email"))
-                .orElseThrow(() -> new EntityNotFoundException("가입되지 않은 Email 입니다."));
+                .orElseThrow(() -> new BaseException("존재하지 않는 이메일입니다.", null ,HttpStatus.NOT_FOUND));
 
         if (!passwordEncoder.matches(member.get("password"), loginMember.getPassword())) {
-            throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+            throw new BaseException("잘못된 비밀번호입니다.", null, HttpStatus.CONFLICT);
         }
 
         return jwtTokenProvider.createToken(loginMember.getUsername());
+    }
+
+    public boolean checkEmail(String email) {
+        Optional<Member> member = memberRepository.findByEmail(email);
+        return member.isPresent();
     }
 }
