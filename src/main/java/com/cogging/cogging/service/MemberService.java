@@ -20,7 +20,6 @@ import java.util.Map;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-@Transactional
 @Service
 public class MemberService {
 
@@ -28,6 +27,7 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
+    @Transactional
     public int signUp(MemberSingUpDto requestDto){
         if(checkEmail(requestDto.getEmail())){
             throw new BaseException("이미 존재하는 이메일입니다.", null, null);
@@ -39,6 +39,7 @@ public class MemberService {
         return newMember.getId();
     }
 
+    @Transactional
     public String login(Map<String, String> member) {
         Member loginMember = memberRepository.findByEmail(member.get("email"))
                 .orElseThrow(() -> new BaseException("존재하지 않는 이메일입니다.", null, HttpStatus.NOT_FOUND));
@@ -50,16 +51,19 @@ public class MemberService {
         return jwtTokenProvider.createToken(loginMember.getUsername());
     }
 
+    @Transactional
     public boolean checkEmail(String email) {
         Optional<Member> member = memberRepository.findByEmail(email);
         return member.isPresent();
     }
 
+    @Transactional
     public boolean checkNickname(String nickname) {
         Optional<Member> member = memberRepository.findByNickname(nickname);
         return member.isPresent();
     }
 
+    @Transactional
     public MemberDto getMember(int memberId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException("존재하지 않는 유저입니다", null, HttpStatus.NOT_FOUND));
@@ -67,6 +71,7 @@ public class MemberService {
         return member.toMemberDto();
     }
 
+    @Transactional
     public List<MemberDto> getMemberList() {
         Sort sort = Sort.by(Sort.Order.asc("id"));
         List<Member> memberList = memberRepository.findAll(sort);
