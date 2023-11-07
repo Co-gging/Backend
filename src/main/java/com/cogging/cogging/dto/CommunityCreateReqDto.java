@@ -2,28 +2,28 @@ package com.cogging.cogging.dto;
 
 import com.cogging.cogging.entity.Community;
 import com.cogging.cogging.entity.Member;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+
 
 @Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommunityDto {
-
+public class CommunityCreateReqDto {
     private String title;
     private String content;
-    private LocalDateTime createdAt;
-    private int comments;
-    private Member member;
 
-    public Community toEntity(){
-       return Community.builder()
+    public Community toEntity(Member member){
+        return Community.builder()
                 .title(title)
                 .content(content)
-                .createdAt(createdAt)
-                .comments(comments)
+                .createdAt(LocalDateTime.now())
+                .comments(0)
                 .member(member)
                 .build();
     }
