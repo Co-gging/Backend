@@ -3,11 +3,13 @@ package com.cogging.cogging.dto;
 import com.cogging.cogging.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
+
 @Builder
+@Getter
+@NoArgsConstructor
 @AllArgsConstructor
 public class MemberSingUpDto {
     private String email;
