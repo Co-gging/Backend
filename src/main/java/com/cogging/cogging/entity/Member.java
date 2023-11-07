@@ -41,7 +41,7 @@ public class Member implements UserDetails {
     @OneToMany(mappedBy = "member")
     private List<Community> community = new ArrayList<>();
 
-    public MemberDto toMemberDto(){
+    public MemberDto toDto(){
         return MemberDto.builder()
                 .email(email)
                 .nickname(nickname)

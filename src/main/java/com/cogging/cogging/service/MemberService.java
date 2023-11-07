@@ -70,7 +70,7 @@ public class MemberService {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(USER_NOT_FOUND, null, HttpStatus.NOT_FOUND));
 
-        return member.toMemberDto();
+        return member.toDto();
     }
 
     @Transactional
@@ -80,7 +80,7 @@ public class MemberService {
         List<MemberDto> memberDtoList = new ArrayList<>();
 
         for (Member member : memberList) {
-            memberDtoList.add(member.toMemberDto());
+            memberDtoList.add(member.toDto());
         }
 
         return memberDtoList;

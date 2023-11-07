@@ -43,7 +43,7 @@ public class Community {
                 .content(content)
                 .createdAt(createdAt)
                 .comments(comments)
-                .author(member.toMemberDto())
+                .author(member.toDto())
                 .build();
     }
 
