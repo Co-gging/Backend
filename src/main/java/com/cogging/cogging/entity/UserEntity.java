@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Entity
 @NoArgsConstructor
-@Table(name = "users")
+@Table(name = "member")
 public class UserEntity {
 
     @Id
@@ -22,9 +22,10 @@ public class UserEntity {
 
     private String password;
 
+    @Column(unique = true)
     private String nickname;
 
-    private int profile_img;
+    private int profileImage;
 
     private int participation;
 

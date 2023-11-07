@@ -39,4 +39,12 @@ public class CommunityController {
         return new ResponseEntity<>(post, HttpStatus.OK);
     }
 
+    @PostMapping("/api/community/update")
+    public void updateCommunity(@RequestParam Integer id,
+                                @RequestBody Map<String, String> param){
+
+
+
+    }
+
 }

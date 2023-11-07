@@ -58,7 +58,7 @@ public class CommunityService {
         }
         communityList.put("list", communityArr);
 
-        return communityList.toString();
+        return communityArr.toString();
     }
 
     @Transactional
@@ -78,8 +78,14 @@ public class CommunityService {
 
         UserEntity user = community.getUser();
         post.put("writer", user.getNickname());
-        post.put("profile_image", user.getProfile_img());
+        post.put("profile_image", user.getProfileImage());
 
         return post.toString();
     }
+
+    @Transactional
+    public void updatePost(Integer id, Map<String, String> param){
+
+    }
+
 }
