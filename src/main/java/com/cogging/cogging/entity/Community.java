@@ -1,5 +1,6 @@
 package com.cogging.cogging.entity;
 
+import com.cogging.cogging.dto.CommunityDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,5 +34,17 @@ public class Community {
     private LocalDateTime createdAt;
 
     private int comments;
+
+
+    public CommunityDto toDto(){
+        return CommunityDto.builder()
+                .id(id)
+                .title(title)
+                .content(content)
+                .createdAt(createdAt)
+                .comments(comments)
+                .author(member.toMemberDto())
+                .build();
+    }
 
 }

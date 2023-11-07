@@ -12,19 +12,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class CommunityDto {
 
+    private int id;
     private String title;
     private String content;
     private LocalDateTime createdAt;
     private int comments;
-    private Member member;
-
-    public Community toEntity(){
-       return Community.builder()
-                .title(title)
-                .content(content)
-                .createdAt(createdAt)
-                .comments(comments)
-                .member(member)
-                .build();
-    }
+    private MemberDto author;
 }
