@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.cogging.cogging.exceptions.ExceptionConstants.CANNOT_FIND_USER;
+
 @RequiredArgsConstructor
 @Service
 public class MemberService {
@@ -66,7 +68,7 @@ public class MemberService {
     @Transactional
     public MemberDto getMember(int memberId) {
         Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new BaseException("존재하지 않는 유저입니다", null, HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new BaseException(CANNOT_FIND_USER, null, HttpStatus.NOT_FOUND));
 
         return member.toMemberDto();
     }
