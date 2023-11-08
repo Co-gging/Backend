@@ -39,4 +39,9 @@ public class CommunityController {
         communityService.updateCommunity(member, communityUpdateDto);
     }
 
+    @DeleteMapping("/delete")
+    public void deleteCommunity(@AuthenticationPrincipal Member member, @RequestBody Map<String, Integer> communityId){
+        communityService.deleteCommunity(member, communityId.get("id"));
+    }
+
 }

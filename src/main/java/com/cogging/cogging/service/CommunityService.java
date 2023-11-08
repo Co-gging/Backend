@@ -21,7 +21,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CommunityService {
 
-    private final MemberRepository memberRepository;
     private final CommunityRepository communityRepository;
 
     @Transactional
@@ -62,6 +61,18 @@ public class CommunityService {
 
         community.update(communityUpdateDto.getTitle(), communityUpdateDto.getContent());
         System.out.println(community);
+    }
+
+    @Transactional
+    public void deleteCommunity(Member member, int id){
+        Community community = communityRepository.findById(id)
+                .orElseThrow(() -> new BaseException("존재하지 않는 글입니다.", null, HttpStatus.NOT_FOUND));
+
+        if(community.getMember().getId() != member.getId()){
+            throw new BaseException("작성자만 수정이 가능합니다.", null, HttpStatus.FORBIDDEN);
+        }
+
+        communityRepository.delete(community);
     }
 
 }
