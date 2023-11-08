@@ -1,7 +1,8 @@
 package com.cogging.cogging.controller;
 
-import com.cogging.cogging.dto.CommunityCreateReqDto;
+import com.cogging.cogging.dto.CommunityReqDto;
 import com.cogging.cogging.dto.CommunityDto;
+import com.cogging.cogging.dto.CommunityUpdateDto;
 import com.cogging.cogging.entity.Member;
 import com.cogging.cogging.service.CommunityService;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +20,8 @@ public class CommunityController {
     private final CommunityService communityService;
 
     @PostMapping("/create")
-    public Map<String, Integer> createCommunity(@AuthenticationPrincipal Member member, @RequestBody CommunityCreateReqDto communityCreateReqDto){
-        return Map.of("communityId", communityService.createCommunity(member, communityCreateReqDto));
+    public Map<String, Integer> createCommunity(@AuthenticationPrincipal Member member, @RequestBody CommunityReqDto communityReqDto){
+        return Map.of("communityId", communityService.createCommunity(member, communityReqDto));
     }
 
     @GetMapping("/list")
@@ -31,6 +32,11 @@ public class CommunityController {
     @PostMapping("")
     public CommunityDto getCommunity(@AuthenticationPrincipal Member member, @RequestBody Map<String, Integer> communityId){
         return communityService.getCommunity(communityId.get("id"));
+    }
+
+    @PutMapping("/update")
+    public void updateCommunity(@AuthenticationPrincipal Member member, @RequestBody CommunityUpdateDto communityUpdateDto){
+        communityService.updateCommunity(member, communityUpdateDto);
     }
 
 }

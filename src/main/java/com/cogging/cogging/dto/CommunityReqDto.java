@@ -9,12 +9,11 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-
 @Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommunityCreateReqDto {
+public class CommunityReqDto {
     private String title;
     private String content;
 
