@@ -7,27 +7,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "place")
+@Table(name = "place_category")
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Place {
+public class PlaceCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    String name;
-
-    String address;
-
-    private double latitude; // 위도
-
-    private double longitude; // 경도
-
-    @ManyToOne
-    @JoinColumn(name = "place_category_id")
-    private PlaceCategory categoryId;
-
+    private String name;
 }
