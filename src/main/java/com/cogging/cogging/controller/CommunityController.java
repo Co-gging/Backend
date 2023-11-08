@@ -28,4 +28,9 @@ public class CommunityController {
         return communityService.getCommunityList();
     }
 
+    @PostMapping("")
+    public CommunityDto getCommunity(@AuthenticationPrincipal Member member, @RequestBody Map<String, Integer> communityId){
+        return communityService.getCommunity(communityId.get("id"));
+    }
+
 }

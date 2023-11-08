@@ -5,10 +5,12 @@ import com.cogging.cogging.dto.CommunityDto;
 import com.cogging.cogging.dto.MemberDto;
 import com.cogging.cogging.entity.Community;
 import com.cogging.cogging.entity.Member;
+import com.cogging.cogging.exceptions.BaseException;
 import com.cogging.cogging.repository.CommunityRepository;
 import com.cogging.cogging.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,5 +41,13 @@ public class CommunityService {
         }
 
         return CommunityDtoList;
+    }
+
+    @Transactional
+    public CommunityDto getCommunity(int id){
+        Community community = communityRepository.findById(id)
+                .orElseThrow(() -> new BaseException("존재하지 않는 글입니다.", null, HttpStatus.NOT_FOUND));
+
+        return community.toDto();
     }
 }
