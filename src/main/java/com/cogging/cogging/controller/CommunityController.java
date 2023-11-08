@@ -30,7 +30,7 @@ public class CommunityController {
     }
 
     @PostMapping("")
-    public CommunityDto getCommunity(@AuthenticationPrincipal Member member, @RequestBody Map<String, Integer> communityId){
+    public CommunityDto getCommunity(@RequestBody Map<String, Integer> communityId){
         return communityService.getCommunity(communityId.get("id"));
     }
 
