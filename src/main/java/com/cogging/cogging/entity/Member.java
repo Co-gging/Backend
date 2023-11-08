@@ -9,8 +9,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @Entity
 @Table(name = "member")
@@ -21,7 +24,7 @@ import java.util.Collections;
 public class Member implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(unique = true)
@@ -35,7 +38,10 @@ public class Member implements UserDetails {
 
     private int participation;
 
-    public MemberDto toMemberDto(){
+    @OneToMany(mappedBy = "member")
+    private List<Community> community = new ArrayList<>();
+
+    public MemberDto toDto(){
         return MemberDto.builder()
                 .email(email)
                 .nickname(nickname)
