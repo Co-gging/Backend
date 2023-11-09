@@ -1,5 +1,7 @@
 package com.cogging.cogging.entity;
 
+import com.cogging.cogging.dto.MemberDto;
+import com.cogging.cogging.dto.PlaceDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,9 +20,9 @@ public class Place {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    String name;
+    private String name;
 
-    String address;
+    private String address;
 
     private double latitude; // 위도
 
@@ -28,6 +30,17 @@ public class Place {
 
     @ManyToOne
     @JoinColumn(name = "place_category_id")
-    private PlaceCategory categoryId;
+    private PlaceCategory placeCategory;
+
+    public PlaceDto toDto(){
+        return PlaceDto.builder()
+                .id(id)
+                .name(name)
+                .address(address)
+                .latitude(latitude)
+                .longitude(longitude)
+                .placeCategory(placeCategory.getName())
+                .build();
+    }
 
 }

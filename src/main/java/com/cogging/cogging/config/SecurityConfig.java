@@ -61,7 +61,7 @@ public class SecurityConfig {
                                 .requestMatchers("/api/members/list").permitAll()
                                 .requestMatchers("/api/community/list").permitAll()
                                 .requestMatchers("/api/community").permitAll()
-                                .requestMatchers("/api/place/*").permitAll()
+                                .requestMatchers("/api/place/**").permitAll()
                                 .requestMatchers("/error").permitAll()
                                 .requestMatchers(HttpMethod.OPTIONS, "/api/**").permitAll()
                                 .anyRequest().authenticated()
