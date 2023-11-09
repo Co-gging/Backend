@@ -19,10 +19,10 @@ public class Scrap  {
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "member_id")
+    @JoinColumn(name = "member_id")
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "place_id")
+    @JoinColumn(name = "place_id")
     private Place place;
 }
