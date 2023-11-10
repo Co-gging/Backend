@@ -2,7 +2,9 @@ package com.cogging.cogging.dto;
 
 import com.cogging.cogging.entity.Community;
 import com.cogging.cogging.entity.Member;
+import com.cogging.cogging.entity.Place;
 import com.cogging.cogging.entity.Plogging;
+import jakarta.validation.constraints.Max;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

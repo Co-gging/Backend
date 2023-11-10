@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "member")
+@Table(name = "plogging")
 @Getter
 @Builder
 @NoArgsConstructor
@@ -20,10 +20,12 @@ public class Plogging {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    // 작성자
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id")
     private Member member;
 
-    // 장소
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "place_id")
     private Place place;
 
     private String title;
