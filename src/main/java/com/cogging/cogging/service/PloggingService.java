@@ -1,7 +1,10 @@
 package com.cogging.cogging.service;
 
+import com.cogging.cogging.dto.CommunityDto;
 import com.cogging.cogging.dto.MemberSingUpDto;
 import com.cogging.cogging.dto.PloggingCreateDto;
+import com.cogging.cogging.dto.PloggingDto;
+import com.cogging.cogging.entity.Community;
 import com.cogging.cogging.entity.Member;
 import com.cogging.cogging.entity.Place;
 import com.cogging.cogging.entity.Plogging;
@@ -12,6 +15,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -28,5 +34,17 @@ public class PloggingService {
         Plogging plogging = ploggingRepository.save(ploggingCreateDto.toEntity(member, place));
 
         return plogging.getId();
+    }
+
+    @Transactional
+    public List<PloggingDto> getPloggingList(){
+        List<Plogging> ploggings = ploggingRepository.findAll();
+        List<PloggingDto> PloggingDtos = new ArrayList<>();
+
+        for (Plogging plogging : ploggings) {
+            PloggingDtos.add(plogging.toDto());
+        }
+
+        return PloggingDtos;
     }
 }
