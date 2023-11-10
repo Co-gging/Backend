@@ -9,4 +9,6 @@ import java.util.Optional;
 
 public interface PlaceRepository extends JpaRepository<Place, Integer> {
     List<Place> findByNameOrAddressContaining(String nameKeyword, String addressKeyword);
+
+    List<Place> findTop10ByOrderByScrapCountDesc();
 }

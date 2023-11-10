@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/place")
 @RequiredArgsConstructor
@@ -22,5 +23,10 @@ public class PlaceController {
     @GetMapping("/search")
     public List<PlaceDto> searchPlaceList(@RequestParam(name = "keyword") String keyword){
         return placeService.searchPlaceList(keyword);
+    }
+
+    @GetMapping("/top")
+    public List<PlaceDto> getTopPlaceList(){
+        return placeService.getTopPlaceList();
     }
 }

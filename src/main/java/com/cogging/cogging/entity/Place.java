@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Formula;
 
 @Entity
 @Table(name = "place")
@@ -32,6 +33,9 @@ public class Place {
     @JoinColumn(name = "place_category_id")
     private PlaceCategory placeCategory;
 
+    @Formula("(select count(*) from scrap s where s.place_id = id)")
+    private int scrapCount;
+
     public PlaceDto toDto(){
         return PlaceDto.builder()
                 .id(id)
@@ -40,6 +44,7 @@ public class Place {
                 .latitude(latitude)
                 .longitude(longitude)
                 .placeCategory(placeCategory.getName())
+                .scrapCount(scrapCount)
                 .build();
     }
 
