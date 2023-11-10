@@ -1,9 +1,6 @@
 package com.cogging.cogging.service;
 
-import com.cogging.cogging.dto.CommunityDto;
-import com.cogging.cogging.dto.MemberSingUpDto;
-import com.cogging.cogging.dto.PloggingCreateDto;
-import com.cogging.cogging.dto.PloggingDto;
+import com.cogging.cogging.dto.*;
 import com.cogging.cogging.entity.Community;
 import com.cogging.cogging.entity.Member;
 import com.cogging.cogging.entity.Place;
@@ -37,14 +34,14 @@ public class PloggingService {
     }
 
     @Transactional
-    public List<PloggingDto> getPloggingList(){
+    public List<PloggingListDto> getPloggingList(){
         List<Plogging> ploggings = ploggingRepository.findAll();
-        List<PloggingDto> PloggingDtos = new ArrayList<>();
+        List<PloggingListDto> ploggingListDtos = new ArrayList<>();
 
         for (Plogging plogging : ploggings) {
-            PloggingDtos.add(plogging.toDto());
+            ploggingListDtos.add(plogging.toListDto());
         }
 
-        return PloggingDtos;
+        return ploggingListDtos;
     }
 }

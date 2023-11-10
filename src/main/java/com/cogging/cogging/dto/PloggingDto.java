@@ -15,8 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PloggingDto {
-    private int id;
-    private String authorNickname;
+    private MemberDto memberDto;
     private String placeName;
     private String title;
     private String content;

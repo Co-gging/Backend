@@ -3,6 +3,7 @@ package com.cogging.cogging.controller;
 import com.cogging.cogging.dto.CommunityReqDto;
 import com.cogging.cogging.dto.PloggingCreateDto;
 import com.cogging.cogging.dto.PloggingDto;
+import com.cogging.cogging.dto.PloggingListDto;
 import com.cogging.cogging.entity.Member;
 import com.cogging.cogging.service.PloggingService;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class PloggingController {
     }
 
     @GetMapping("/list")
-    public List<PloggingDto> getPloggingList(){
+    public List<PloggingListDto> getPloggingList(){
         return ploggingService.getPloggingList();
     }
 }

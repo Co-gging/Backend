@@ -2,6 +2,7 @@ package com.cogging.cogging.entity;
 
 import com.cogging.cogging.dto.PlaceDto;
 import com.cogging.cogging.dto.PloggingDto;
+import com.cogging.cogging.dto.PloggingListDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -53,8 +54,7 @@ public class Plogging {
 
     public PloggingDto toDto(){
         return PloggingDto.builder()
-                .id(id)
-                .authorNickname(member.getNickname())
+                .memberDto(member.toDto())
                 .placeName(place.getName())
                 .title(title)
                 .content(content)
@@ -65,6 +65,19 @@ public class Plogging {
                 .departures(departures)
                 .arrivals(arrivals)
                 .chatUrl(chatUrl)
+                .build();
+    }
+
+    public PloggingListDto toListDto(){
+        return PloggingListDto.builder()
+                .id(id)
+                .memberDto(member.toDto())
+                .placeName(place.getName())
+                .title(title)
+                .ploggingDate(ploggingDate)
+                .headcount(headcount)
+                .departures(departures)
+                .arrivals(arrivals)
                 .build();
     }
 
