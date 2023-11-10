@@ -1,13 +1,11 @@
 package com.cogging.cogging.exceptions;
 
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 import java.util.Date;
-
 @Data
 @EqualsAndHashCode(callSuper=true)
 public class BaseException extends RuntimeException {
