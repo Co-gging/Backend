@@ -39,7 +39,10 @@ public class Member implements UserDetails {
     private int participation;
 
     @OneToMany(mappedBy = "member")
-    private List<Community> community = new ArrayList<>();
+    private List<Community> communities = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<Scrap> scraps = new ArrayList<>();
 
     public MemberDto toDto(){
         return MemberDto.builder()

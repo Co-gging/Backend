@@ -75,8 +75,8 @@ public class MemberService {
 
     @Transactional
     public List<MemberDto> getMemberList() {
-        Sort sort = Sort.by(Sort.Order.asc("id"));
-        List<Member> memberList = memberRepository.findAll(sort);
+        //Sort sort = Sort.by(Sort.Order.asc("id"));
+        List<Member> memberList = memberRepository.findAll();
         List<MemberDto> memberDtoList = new ArrayList<>();
 
         for (Member member : memberList) {
