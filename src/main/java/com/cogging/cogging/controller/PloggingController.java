@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000", exposedHeaders = "X-AUTH-TOKEN")
 @RequestMapping("/api/plogging")
 @RequiredArgsConstructor
 public class PloggingController {
@@ -24,8 +25,8 @@ public class PloggingController {
     }
 
     @GetMapping("/list")
-    public List<PloggingListDto> getPloggingList(){
-        return ploggingService.getPloggingList();
+    public List<PloggingListDto> getPloggingList(@RequestBody Map<String, Integer> ploggingId){
+        return ploggingService.getPloggingList(ploggingId.get("id"));
     }
 
     @GetMapping("")

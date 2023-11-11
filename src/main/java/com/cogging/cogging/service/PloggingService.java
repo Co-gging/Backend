@@ -36,8 +36,8 @@ public class PloggingService {
     }
 
     @Transactional
-    public List<PloggingListDto> getPloggingList(){
-        List<Plogging> ploggings = ploggingRepository.findAll();
+    public List<PloggingListDto> getPloggingList(int id){
+        List<Plogging> ploggings = ploggingRepository.findByPlaceId(id);
         List<PloggingListDto> ploggingListDtos = new ArrayList<>();
 
         for (Plogging plogging : ploggings) {
