@@ -1,11 +1,9 @@
 package com.cogging.cogging.service;
 
 import com.cogging.cogging.dto.*;
-import com.cogging.cogging.entity.Community;
-import com.cogging.cogging.entity.Member;
-import com.cogging.cogging.entity.Place;
-import com.cogging.cogging.entity.Plogging;
+import com.cogging.cogging.entity.*;
 import com.cogging.cogging.exceptions.BaseException;
+import com.cogging.cogging.repository.JoinPloggingRepository;
 import com.cogging.cogging.repository.PloggingRepository;
 import com.cogging.cogging.repository.PlaceRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -22,6 +22,7 @@ public class PloggingService {
 
     private final PloggingRepository ploggingRepository;
     private final PlaceRepository placeRepository;
+    private final JoinPloggingRepository joinPloggingRepository;
 
     @Transactional
     public int createPlogging(Member member, PloggingCreateDto ploggingCreateDto){
@@ -44,4 +45,42 @@ public class PloggingService {
 
         return ploggingListDtos;
     }
+
+    @Transactional
+    public PloggingDto getPlogging(int id){
+        Plogging plogging = ploggingRepository.findById(id)
+                .orElseThrow(() -> new BaseException("존재하지 않는 글입니다.", null, HttpStatus.NOT_FOUND));
+
+        return plogging.toDto();
+    }
+
+//    @Transactional
+//    public void joinPlogging(Member member, int ploggingId){
+//        Plogging plogging = ploggingRepository.findById(ploggingId)
+//                .orElseThrow(() -> new BaseException("존재하지 않는 글입니다.", null, HttpStatus.NOT_FOUND));
+//
+//        if(joinPloggingRepository.findByMemberIdAndPloggingId(member.getId(), ploggingId).isPresent()){
+//            throw new BaseException("이미 참여한 플로깅입니다.", null, null);
+//        }
+//
+//        JoinPlogging joinPlogging = JoinPlogging.builder()
+//                .member(member)
+//                .plogging(plogging)
+//                .build();
+//
+//        joinPloggingRepository.save(joinPlogging);
+//    }
+//
+//    @Transactional
+//    public void deleteJoinPlogging(Member member, int id){
+//        Plogging plogging = ploggingRepository.findById(id)
+//                .orElseThrow(() -> new BaseException("존재하지 않는 글입니다.", null, HttpStatus.NOT_FOUND));
+//
+//        JoinPlogging joinPlogging = JoinPlogging.builder()
+//                .member(member)
+//                .plogging(plogging)
+//                .build();
+//
+//        joinPloggingRepository.delete(joinPlogging);
+//    }
 }

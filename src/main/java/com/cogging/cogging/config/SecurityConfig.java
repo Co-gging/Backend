@@ -62,6 +62,8 @@ public class SecurityConfig {
                                 .requestMatchers("/api/community/list").permitAll()
                                 .requestMatchers("/api/community").permitAll()
                                 .requestMatchers("/api/place/**").permitAll()
+                                .requestMatchers("/api/plogging/list").permitAll()
+                                .requestMatchers("/api/plogging").permitAll()
                                 .requestMatchers("/error").permitAll()
                                 .requestMatchers(HttpMethod.OPTIONS, "/api/**").permitAll()
                                 .anyRequest().authenticated()

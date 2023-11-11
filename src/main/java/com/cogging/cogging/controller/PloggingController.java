@@ -1,10 +1,8 @@
 package com.cogging.cogging.controller;
 
-import com.cogging.cogging.dto.CommunityReqDto;
-import com.cogging.cogging.dto.PloggingCreateDto;
-import com.cogging.cogging.dto.PloggingDto;
-import com.cogging.cogging.dto.PloggingListDto;
+import com.cogging.cogging.dto.*;
 import com.cogging.cogging.entity.Member;
+import com.cogging.cogging.entity.Plogging;
 import com.cogging.cogging.service.PloggingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -29,4 +27,21 @@ public class PloggingController {
     public List<PloggingListDto> getPloggingList(){
         return ploggingService.getPloggingList();
     }
+
+    @GetMapping("")
+    public PloggingDto getPlogging(@RequestBody Map<String, Integer> ploggingId){
+        return ploggingService.getPlogging(ploggingId.get("id"));
+    }
+
+//    @PostMapping("/join")
+//    public void joinPlogging(@AuthenticationPrincipal Member member,
+//                                    @RequestBody Map<String, Integer> ploggingId){
+//        ploggingService.joinPlogging(member, ploggingId.get("id"));
+//    }
+//
+//    @DeleteMapping("/join")
+//    public void deleteJoinPlogging(@AuthenticationPrincipal Member member,
+//                                            @RequestBody Map<String, Integer> ploggingId){
+//        ploggingService.deleteJoinPlogging(member, ploggingId.get("id"));
+//    }
 }
