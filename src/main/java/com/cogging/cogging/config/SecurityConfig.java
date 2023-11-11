@@ -64,6 +64,7 @@ public class SecurityConfig {
                                 .requestMatchers("/api/place/**").permitAll()
                                 .requestMatchers("/api/plogging/list").permitAll()
                                 .requestMatchers("/api/plogging").permitAll()
+                                .requestMatchers("/api/review/list").permitAll()
                                 .requestMatchers("/error").permitAll()
                                 .requestMatchers(HttpMethod.OPTIONS, "/api/**").permitAll()
                                 .anyRequest().authenticated()
