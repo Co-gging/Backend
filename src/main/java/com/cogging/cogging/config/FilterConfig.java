@@ -8,11 +8,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FilterConfig {
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    @Bean
-    public FilterRegistrationBean getCrossDomainFilterRegistrationBean() {
-        FilterRegistrationBean registrationBean = new FilterRegistrationBean(new CrossDomainFilter());
-        registrationBean.addUrlPatterns("/*");
-        return registrationBean;
-    }
+    //@SuppressWarnings({ "unchecked", "rawtypes" })
+//    @Bean
+//    public FilterRegistrationBean getCrossDomainFilterRegistrationBean() {
+//        FilterRegistrationBean registrationBean = new FilterRegistrationBean(new CrossDomainFilter());
+//        registrationBean.addUrlPatterns("/*");
+//        return registrationBean;
+//    }
 }
