@@ -3,7 +3,9 @@ package com.cogging.cogging.controller;
 import com.cogging.cogging.dto.CommunityDto;
 import com.cogging.cogging.dto.MemberDto;
 import com.cogging.cogging.dto.MemberSingUpDto;
+import com.cogging.cogging.dto.ReviewDto;
 import com.cogging.cogging.entity.Member;
+import com.cogging.cogging.entity.Review;
 import com.cogging.cogging.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -50,10 +52,14 @@ public class MemberController {
         return memberService.getMemberList();
     }
 
-    @GetMapping("/member/mypage")
-    public List<CommunityDto> getCommunityMypage(@AuthenticationPrincipal Member member){
-        return memberService.getMypageCommunity(member);
+    @GetMapping("/members/community")
+    public List<CommunityDto> getMyCommunity(@AuthenticationPrincipal Member member){
+        return memberService.getMyCommunity(member);
     }
 
+    @GetMapping("/members/review")
+    public List<ReviewDto> getMyReview(@AuthenticationPrincipal Member member){
+        return memberService.getMyReview(member);
+    }
 
 }

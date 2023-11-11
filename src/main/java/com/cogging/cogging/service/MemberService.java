@@ -3,12 +3,15 @@ package com.cogging.cogging.service;
 import com.cogging.cogging.dto.CommunityDto;
 import com.cogging.cogging.dto.MemberDto;
 import com.cogging.cogging.dto.MemberSingUpDto;
+import com.cogging.cogging.dto.ReviewDto;
 import com.cogging.cogging.entity.Community;
 import com.cogging.cogging.entity.Member;
+import com.cogging.cogging.entity.Review;
 import com.cogging.cogging.exceptions.BaseException;
 import com.cogging.cogging.jwt.JwtTokenProvider;
 import com.cogging.cogging.repository.CommunityRepository;
 import com.cogging.cogging.repository.MemberRepository;
+import com.cogging.cogging.repository.ReviewRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -32,6 +35,7 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final CommunityRepository communityRepository;
+    private final ReviewRepository reviewRepository;
 
     @Transactional
     public int signUp(MemberSingUpDto requestDto){
@@ -91,7 +95,7 @@ public class MemberService {
     }
 
     @Transactional
-    public List<CommunityDto> getMypageCommunity(Member member){
+    public List<CommunityDto> getMyCommunity(Member member){
         List<Community> communities = communityRepository.findByMemberIdOrderByCreatedAtDesc(member.getId());
         List<CommunityDto> CommunityDtos = new ArrayList<>();
 
@@ -100,5 +104,17 @@ public class MemberService {
         }
 
         return CommunityDtos;
+    }
+
+    @Transactional
+    public List<ReviewDto> getMyReview(Member member){
+        List<Review> reviews = reviewRepository.findByMemberIdOrderByCreatedAtDesc(member.getId());
+        List<ReviewDto> ReviewDtos = new ArrayList<>();
+
+        for (Review review : reviews) {
+            ReviewDtos.add(review.toDto());
+        }
+
+        return ReviewDtos;
     }
 }
