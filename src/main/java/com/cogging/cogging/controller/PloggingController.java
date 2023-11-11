@@ -24,12 +24,12 @@ public class PloggingController {
         return Map.of("ploggingId", ploggingService.createPlogging(member, ploggingCreateDto));
     }
 
-    @GetMapping("/list")
+    @PostMapping("/list")
     public List<PloggingListDto> getPloggingList(@RequestBody Map<String, Integer> ploggingId){
         return ploggingService.getPloggingList(ploggingId.get("id"));
     }
 
-    @GetMapping("")
+    @PostMapping("")
     public PloggingDto getPlogging(@RequestBody Map<String, Integer> ploggingId){
         return ploggingService.getPlogging(ploggingId.get("id"));
     }
