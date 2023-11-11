@@ -38,10 +38,10 @@ public class PloggingController {
                                     @RequestBody Map<String, Integer> ploggingId){
         ploggingService.joinPlogging(member, ploggingId.get("id"));
     }
-//
-//    @DeleteMapping("/join")
-//    public void deleteJoinPlogging(@AuthenticationPrincipal Member member,
-//                                            @RequestBody Map<String, Integer> ploggingId){
-//        ploggingService.deleteJoinPlogging(member, ploggingId.get("id"));
-//    }
+
+    @DeleteMapping("/join")
+    public void deleteJoinPlogging(@AuthenticationPrincipal Member member,
+                                            @RequestBody Map<String, Integer> ploggingId){
+        ploggingService.deleteJoinPlogging(member, ploggingId.get("id"));
+    }
 }

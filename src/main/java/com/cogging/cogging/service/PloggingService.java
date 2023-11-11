@@ -71,17 +71,12 @@ public class PloggingService {
 
         joinPloggingRepository.save(joinPlogging);
     }
-//
-//    @Transactional
-//    public void deleteJoinPlogging(Member member, int id){
-//        Plogging plogging = ploggingRepository.findById(id)
-//                .orElseThrow(() -> new BaseException("존재하지 않는 글입니다.", null, HttpStatus.NOT_FOUND));
-//
-//        JoinPlogging joinPlogging = JoinPlogging.builder()
-//                .member(member)
-//                .plogging(plogging)
-//                .build();
-//
-//        joinPloggingRepository.delete(joinPlogging);
-//    }
+
+    @Transactional
+    public void deleteJoinPlogging(Member member, int ploggingId){
+        JoinPlogging joinPlogging = joinPloggingRepository.findByMemberIdAndPloggingId(member.getId(), ploggingId)
+                .orElseThrow(() -> new BaseException("신청내역에 없습니다.", null, HttpStatus.NOT_FOUND));
+
+        joinPloggingRepository.delete(joinPlogging);
+    }
 }
