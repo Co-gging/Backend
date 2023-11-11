@@ -32,14 +32,14 @@ public class CommunityService {
     @Transactional
     public List<CommunityDto> getCommunityList(){
         Sort sort = Sort.by(Sort.Order.asc("id"));
-        List<Community> communityList = communityRepository.findAll(sort);
-        List<CommunityDto> CommunityDtoList = new ArrayList<>();
+        List<Community> communities = communityRepository.findAll(sort);
+        List<CommunityDto> CommunityDtos = new ArrayList<>();
 
-        for (Community community : communityList) {
-            CommunityDtoList.add(community.toDto());
+        for (Community community : communities) {
+            CommunityDtos.add(community.toDto());
         }
 
-        return CommunityDtoList;
+        return CommunityDtos;
     }
 
     @Transactional
