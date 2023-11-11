@@ -30,6 +30,7 @@ public class PloggingService {
                 .orElseThrow(() -> new BaseException("존재하지 않는 장소입니다.", null, HttpStatus.NOT_FOUND));
 
         Plogging plogging = ploggingRepository.save(ploggingCreateDto.toEntity(member, place));
+        joinPlogging(member, plogging.getId());
 
         return plogging.getId();
     }
