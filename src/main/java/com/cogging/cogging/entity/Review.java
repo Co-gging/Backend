@@ -1,5 +1,7 @@
 package com.cogging.cogging.entity;
 
+import com.cogging.cogging.dto.CommunityDto;
+import com.cogging.cogging.dto.ReviewDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,4 +35,11 @@ public class Review {
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+
+    public ReviewDto toDto(){
+        return ReviewDto.builder()
+                .title(title)
+                .content(content)
+                .build();
+    }
 }
