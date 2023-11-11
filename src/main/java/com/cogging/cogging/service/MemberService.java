@@ -1,16 +1,15 @@
 package com.cogging.cogging.service;
 
-import com.cogging.cogging.dto.CommunityDto;
-import com.cogging.cogging.dto.MemberDto;
-import com.cogging.cogging.dto.MemberSingUpDto;
-import com.cogging.cogging.dto.ReviewDto;
+import com.cogging.cogging.dto.*;
 import com.cogging.cogging.entity.Community;
 import com.cogging.cogging.entity.Member;
+import com.cogging.cogging.entity.Plogging;
 import com.cogging.cogging.entity.Review;
 import com.cogging.cogging.exceptions.BaseException;
 import com.cogging.cogging.jwt.JwtTokenProvider;
 import com.cogging.cogging.repository.CommunityRepository;
 import com.cogging.cogging.repository.MemberRepository;
+import com.cogging.cogging.repository.PloggingRepository;
 import com.cogging.cogging.repository.ReviewRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +35,7 @@ public class MemberService {
     private final JwtTokenProvider jwtTokenProvider;
     private final CommunityRepository communityRepository;
     private final ReviewRepository reviewRepository;
+    private final PloggingRepository ploggingRepository;
 
     @Transactional
     public int signUp(MemberSingUpDto requestDto){
@@ -116,5 +116,17 @@ public class MemberService {
         }
 
         return ReviewDtos;
+    }
+
+    @Transactional
+    public List<PloggingListDto> getMyPlogging(Member member){
+        List<Plogging> ploggings = ploggingRepository.findByMemberIdOrderByCreatedAtDesc(member.getId());
+        List<PloggingListDto> PloggingDtos = new ArrayList<>();
+
+        for (Plogging plogging : ploggings) {
+            PloggingDtos.add(plogging.toListDto());
+        }
+
+        return PloggingDtos;
     }
 }

@@ -1,10 +1,8 @@
 package com.cogging.cogging.controller;
 
-import com.cogging.cogging.dto.CommunityDto;
-import com.cogging.cogging.dto.MemberDto;
-import com.cogging.cogging.dto.MemberSingUpDto;
-import com.cogging.cogging.dto.ReviewDto;
+import com.cogging.cogging.dto.*;
 import com.cogging.cogging.entity.Member;
+import com.cogging.cogging.entity.Plogging;
 import com.cogging.cogging.entity.Review;
 import com.cogging.cogging.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -60,6 +58,11 @@ public class MemberController {
     @GetMapping("/members/review")
     public List<ReviewDto> getMyReview(@AuthenticationPrincipal Member member){
         return memberService.getMyReview(member);
+    }
+
+    @GetMapping("/members/plogging")
+    public List<PloggingListDto> getMyPlogging(@AuthenticationPrincipal Member member){
+        return memberService.getMyPlogging(member);
     }
 
 }

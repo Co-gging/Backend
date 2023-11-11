@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface PloggingRepository extends JpaRepository<Plogging, Integer> {
     List<Plogging> findByPlaceId(int ploggindId);
+    List<Plogging> findByMemberIdOrderByCreatedAtDesc(int memberId);
 }
