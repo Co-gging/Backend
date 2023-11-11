@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface CommunityRepository extends JpaRepository<Community, Integer> {
     List<Community> findAll(Sort sort);
     Optional<Community> findById(Integer integer);
+    List<Community> findByMemberIdOrderByCreatedAtDesc(int memberId);
 }

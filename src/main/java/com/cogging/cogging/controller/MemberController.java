@@ -1,5 +1,6 @@
 package com.cogging.cogging.controller;
 
+import com.cogging.cogging.dto.CommunityDto;
 import com.cogging.cogging.dto.MemberDto;
 import com.cogging.cogging.dto.MemberSingUpDto;
 import com.cogging.cogging.entity.Member;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin(origins = "http://localhost:3000", exposedHeaders = "X-AUTH-TOKEN")
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -46,6 +48,11 @@ public class MemberController {
     @GetMapping("/members/list")
     public List<MemberDto> getMemberList(){
         return memberService.getMemberList();
+    }
+
+    @GetMapping("/member/mypage")
+    public List<CommunityDto> getCommunityMypage(@AuthenticationPrincipal Member member){
+        return memberService.getMypageCommunity(member);
     }
 
 

@@ -1,10 +1,13 @@
 package com.cogging.cogging.service;
 
+import com.cogging.cogging.dto.CommunityDto;
 import com.cogging.cogging.dto.MemberDto;
 import com.cogging.cogging.dto.MemberSingUpDto;
+import com.cogging.cogging.entity.Community;
 import com.cogging.cogging.entity.Member;
 import com.cogging.cogging.exceptions.BaseException;
 import com.cogging.cogging.jwt.JwtTokenProvider;
+import com.cogging.cogging.repository.CommunityRepository;
 import com.cogging.cogging.repository.MemberRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +31,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
+    private final CommunityRepository communityRepository;
 
     @Transactional
     public int signUp(MemberSingUpDto requestDto){
@@ -84,5 +88,17 @@ public class MemberService {
         }
 
         return memberDtoList;
+    }
+
+    @Transactional
+    public List<CommunityDto> getMypageCommunity(Member member){
+        List<Community> communities = communityRepository.findByMemberIdOrderByCreatedAtDesc(member.getId());
+        List<CommunityDto> CommunityDtos = new ArrayList<>();
+
+        for (Community community : communities) {
+            CommunityDtos.add(community.toDto());
+        }
+
+        return CommunityDtos;
     }
 }
