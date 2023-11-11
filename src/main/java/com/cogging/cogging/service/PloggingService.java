@@ -54,22 +54,22 @@ public class PloggingService {
         return plogging.toDto();
     }
 
-//    @Transactional
-//    public void joinPlogging(Member member, int ploggingId){
-//        Plogging plogging = ploggingRepository.findById(ploggingId)
-//                .orElseThrow(() -> new BaseException("존재하지 않는 글입니다.", null, HttpStatus.NOT_FOUND));
-//
-//        if(joinPloggingRepository.findByMemberIdAndPloggingId(member.getId(), ploggingId).isPresent()){
-//            throw new BaseException("이미 참여한 플로깅입니다.", null, null);
-//        }
-//
-//        JoinPlogging joinPlogging = JoinPlogging.builder()
-//                .member(member)
-//                .plogging(plogging)
-//                .build();
-//
-//        joinPloggingRepository.save(joinPlogging);
-//    }
+    @Transactional
+    public void joinPlogging(Member member, int ploggingId){
+        Plogging plogging = ploggingRepository.findById(ploggingId)
+                .orElseThrow(() -> new BaseException("존재하지 않는 글입니다.", null, HttpStatus.NOT_FOUND));
+
+        if(joinPloggingRepository.findByMemberIdAndPloggingId(member.getId(), ploggingId).isPresent()){
+            throw new BaseException("이미 참여한 플로깅입니다.", null, null);
+        }
+
+        JoinPlogging joinPlogging = JoinPlogging.builder()
+                .member(member)
+                .plogging(plogging)
+                .build();
+
+        joinPloggingRepository.save(joinPlogging);
+    }
 //
 //    @Transactional
 //    public void deleteJoinPlogging(Member member, int id){

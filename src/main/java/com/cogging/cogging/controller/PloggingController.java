@@ -33,11 +33,11 @@ public class PloggingController {
         return ploggingService.getPlogging(ploggingId.get("id"));
     }
 
-//    @PostMapping("/join")
-//    public void joinPlogging(@AuthenticationPrincipal Member member,
-//                                    @RequestBody Map<String, Integer> ploggingId){
-//        ploggingService.joinPlogging(member, ploggingId.get("id"));
-//    }
+    @PostMapping("/join")
+    public void joinPlogging(@AuthenticationPrincipal Member member,
+                                    @RequestBody Map<String, Integer> ploggingId){
+        ploggingService.joinPlogging(member, ploggingId.get("id"));
+    }
 //
 //    @DeleteMapping("/join")
 //    public void deleteJoinPlogging(@AuthenticationPrincipal Member member,
