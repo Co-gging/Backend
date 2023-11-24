@@ -72,24 +72,24 @@ public class UserService {
     }
 
     @Transactional
-    public UserDto getMember(int memberId) {
-        User user = userRepository.findById(memberId)
+    public UserDto getUser(int userId) {
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new BaseException(USER_NOT_FOUND, null, HttpStatus.NOT_FOUND));
 
         return user.toDto();
     }
 
     @Transactional
-    public List<UserDto> getMemberList() {
+    public List<UserDto> getUsers() {
         //Sort sort = Sort.by(Sort.Order.asc("id"));
-        List<User> userList = userRepository.findAll();
-        List<UserDto> userDtoList = new ArrayList<>();
+        List<User> users = userRepository.findAll();
+        List<UserDto> userDtos = new ArrayList<>();
 
-        for (User user : userList) {
-            userDtoList.add(user.toDto());
+        for (User user : users) {
+            userDtos.add(user.toDto());
         }
 
-        return userDtoList;
+        return userDtos;
     }
 
     @Transactional

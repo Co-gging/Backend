@@ -43,29 +43,29 @@ public class UserController {
     /** 유저 관련 api **/
 
     @GetMapping("/users")
-    public List<UserDto> getMemberList(){
-        return userService.getMemberList();
+    public List<UserDto> getUsers(){
+        return userService.getUsers();
     }
 
     @GetMapping("/users/me")
-    public UserDto getMember(@AuthenticationPrincipal User user){
-        return userService.getMember(user.getId());
+    public UserDto getUser(@AuthenticationPrincipal User user){
+        return userService.getUser(user.getId());
     }
 
     /** 마이페이지 관련 api **/
 
     @GetMapping("/users/me/communities")
-    public List<CommunityDto> getMyCommunity(@AuthenticationPrincipal User user){
+    public List<CommunityDto> getMyCommunities(@AuthenticationPrincipal User user){
         return userService.getMyCommunity(user);
     }
 
     @GetMapping("/users/me/reviews")
-    public List<ReviewDto> getMyReview(@AuthenticationPrincipal User user){
+    public List<ReviewDto> getMyReviews(@AuthenticationPrincipal User user){
         return userService.getMyReview(user);
     }
 
     @GetMapping("/users/me/ploggings")
-    public List<PloggingListDto> getMyPlogging(@AuthenticationPrincipal User user){
+    public List<PloggingListDto> getMyPloggings(@AuthenticationPrincipal User user){
         return userService.getMyPlogging(user);
     }
 
