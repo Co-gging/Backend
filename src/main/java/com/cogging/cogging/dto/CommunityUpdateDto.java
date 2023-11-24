@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CommunityUpdateDto {
-    private int id;
     private String title;
     private String content;
 

@@ -14,36 +14,38 @@ import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:3000", exposedHeaders = "X-AUTH-TOKEN")
 @RestController
-@RequestMapping("/api/community")
+@RequestMapping("/api/communites")
 @RequiredArgsConstructor
 public class CommunityController {
 
     private final CommunityService communityService;
 
-    @PostMapping("/create")
+    @PostMapping()
     public Map<String, Integer> createCommunity(@AuthenticationPrincipal User user,
                                                 @RequestBody CommunityReqDto communityReqDto){
         return Map.of("communityId", communityService.createCommunity(user, communityReqDto));
     }
 
-    @GetMapping("/list")
-    public List<CommunityDto> getCommunityList(){
-        return communityService.getCommunityList();
+    @GetMapping("")
+    public List<CommunityDto> getCommunities(){
+        return communityService.getCommunities();
     }
 
-    @PostMapping("")
-    public CommunityDto getCommunity(@RequestBody Map<String, Integer> communityId){
-        return communityService.getCommunity(communityId.get("id"));
+    @PostMapping("{communityId}")
+    public CommunityDto getCommunity(@PathVariable int communityId){
+        return communityService.getCommunity(communityId);
     }
 
-    @PutMapping("/update")
-    public void updateCommunity(@AuthenticationPrincipal User user, @RequestBody CommunityUpdateDto communityUpdateDto){
-        communityService.updateCommunity(user, communityUpdateDto);
+    @PutMapping("{communityId}")
+    public void updateCommunity(@AuthenticationPrincipal User user,
+                                @PathVariable  int communityId ,
+                                @RequestBody CommunityUpdateDto communityUpdateDto){
+        communityService.updateCommunity(user, communityId, communityUpdateDto);
     }
 
-    @DeleteMapping("/delete")
-    public void deleteCommunity(@AuthenticationPrincipal User user, @RequestBody Map<String, Integer> communityId){
-        communityService.deleteCommunity(user, communityId.get("id"));
+    @DeleteMapping("{communityId}")
+    public void deleteCommunity(@AuthenticationPrincipal User user, @PathVariable  int communityId){
+        communityService.deleteCommunity(user, communityId);
     }
 
 }

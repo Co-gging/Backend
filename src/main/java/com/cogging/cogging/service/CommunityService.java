@@ -29,7 +29,7 @@ public class CommunityService {
     }
 
     @Transactional
-    public List<CommunityDto> getCommunityList(){
+    public List<CommunityDto> getCommunities(){
         Sort sort = Sort.by(Sort.Order.asc("id"));
         List<Community> communities = communityRepository.findAll(sort);
         List<CommunityDto> CommunityDtos = new ArrayList<>();
@@ -42,16 +42,16 @@ public class CommunityService {
     }
 
     @Transactional
-    public CommunityDto getCommunity(int id){
-        Community community = communityRepository.findById(id)
+    public CommunityDto getCommunity(int communityId){
+        Community community = communityRepository.findById(communityId)
                 .orElseThrow(() -> new BaseException("존재하지 않는 글입니다.", null, HttpStatus.NOT_FOUND));
 
         return community.toDto();
     }
 
     @Transactional
-    public void updateCommunity(User user, CommunityUpdateDto communityUpdateDto){
-        Community community = communityRepository.findById(communityUpdateDto.getId())
+    public void updateCommunity(User user, int communityId, CommunityUpdateDto communityUpdateDto){
+        Community community = communityRepository.findById(communityId)
                 .orElseThrow(() -> new BaseException("존재하지 않는 글입니다.", null, HttpStatus.NOT_FOUND));
 
         if(community.getUser().getId() != user.getId()){
@@ -63,8 +63,8 @@ public class CommunityService {
     }
 
     @Transactional
-    public void deleteCommunity(User user, int id){
-        Community community = communityRepository.findById(id)
+    public void deleteCommunity(User user, int communityId){
+        Community community = communityRepository.findById(communityId)
                 .orElseThrow(() -> new BaseException("존재하지 않는 글입니다.", null, HttpStatus.NOT_FOUND));
 
         if(community.getUser().getId() != user.getId()){
