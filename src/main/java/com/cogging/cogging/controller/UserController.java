@@ -18,12 +18,12 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/members/signup")
+    @PostMapping("/signup")
     public Map<String, Integer> signup(@RequestBody UserSignUpDto memberSingUpDto){
         return Map.of("memberId", userService.signUp(memberSingUpDto));
     }
 
-    @PostMapping("/members/login")
+    @PostMapping("/login")
     public Map<String, String> login(@RequestBody Map<String, String> member) {
         return Map.of("token", userService.login(member));
     }
@@ -38,14 +38,16 @@ public class UserController {
         return Map.of("isExist", userService.checkNickname(validNickname.get("nickname")));
     }
 
-    @GetMapping("/member")
-    public UserDto getMember(@AuthenticationPrincipal User user){
-        return userService.getMember(user.getId());
-    }
+    /** 유저 관련 api **/
 
-    @GetMapping("/members/list")
+    @GetMapping("/users")
     public List<UserDto> getMemberList(){
         return userService.getMemberList();
+    }
+
+    @GetMapping("/users/me")
+    public UserDto getMember(@AuthenticationPrincipal User user){
+        return userService.getMember(user.getId());
     }
 
     @GetMapping("/members/community")
