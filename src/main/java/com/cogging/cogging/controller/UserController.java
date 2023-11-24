@@ -50,17 +50,19 @@ public class UserController {
         return userService.getMember(user.getId());
     }
 
-    @GetMapping("/members/community")
+    /** 마이페이지 관련 api **/
+
+    @GetMapping("/users/me/communities")
     public List<CommunityDto> getMyCommunity(@AuthenticationPrincipal User user){
         return userService.getMyCommunity(user);
     }
 
-    @GetMapping("/members/review")
+    @GetMapping("/users/me/reviews")
     public List<ReviewDto> getMyReview(@AuthenticationPrincipal User user){
         return userService.getMyReview(user);
     }
 
-    @GetMapping("/members/plogging")
+    @GetMapping("/users/me/ploggings")
     public List<PloggingListDto> getMyPlogging(@AuthenticationPrincipal User user){
         return userService.getMyPlogging(user);
     }
