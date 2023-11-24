@@ -1,6 +1,5 @@
 package com.cogging.cogging.entity;
 
-import com.cogging.cogging.dto.MemberDto;
 import com.cogging.cogging.dto.PlaceDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,5 @@
 package com.cogging.cogging.entity;
 
-import com.cogging.cogging.dto.CommunityDto;
 import com.cogging.cogging.dto.ReviewDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,7 +22,7 @@ public class Review {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
-    private Member member;
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")

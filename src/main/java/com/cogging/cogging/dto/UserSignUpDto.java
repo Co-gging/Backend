@@ -1,6 +1,6 @@
 package com.cogging.cogging.dto;
 
-import com.cogging.cogging.entity.Member;
+import com.cogging.cogging.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberSingUpDto {
+public class UserSignUpDto {
     private String email;
 
     private String password;
@@ -19,8 +19,8 @@ public class MemberSingUpDto {
 
     private int profileImage;
 
-    public Member toEntity(){
-        return Member.builder()
+    public User toEntity(){
+        return User.builder()
                 .email(email)
                 .password(password)
                 .nickname(nickname)

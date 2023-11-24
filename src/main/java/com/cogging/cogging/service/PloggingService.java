@@ -11,10 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -25,12 +23,12 @@ public class PloggingService {
     private final JoinPloggingRepository joinPloggingRepository;
 
     @Transactional
-    public int createPlogging(Member member, PloggingCreateDto ploggingCreateDto){
+    public int createPlogging(User user, PloggingCreateDto ploggingCreateDto){
         Place place = placeRepository.findById(ploggingCreateDto.getPlaceId())
                 .orElseThrow(() -> new BaseException("존재하지 않는 장소입니다.", null, HttpStatus.NOT_FOUND));
 
-        Plogging plogging = ploggingRepository.save(ploggingCreateDto.toEntity(member, place));
-        joinPlogging(member, plogging.getId());
+        Plogging plogging = ploggingRepository.save(ploggingCreateDto.toEntity(user, place));
+        joinPlogging(user, plogging.getId());
 
         return plogging.getId();
     }
@@ -56,16 +54,16 @@ public class PloggingService {
     }
 
     @Transactional
-    public void joinPlogging(Member member, int ploggingId){
+    public void joinPlogging(User user, int ploggingId){
         Plogging plogging = ploggingRepository.findById(ploggingId)
                 .orElseThrow(() -> new BaseException("존재하지 않는 글입니다.", null, HttpStatus.NOT_FOUND));
 
-        if(joinPloggingRepository.findByMemberIdAndPloggingId(member.getId(), ploggingId).isPresent()){
+        if(joinPloggingRepository.findByMemberIdAndPloggingId(user.getId(), ploggingId).isPresent()){
             throw new BaseException("이미 참여한 플로깅입니다.", null, null);
         }
 
         JoinPlogging joinPlogging = JoinPlogging.builder()
-                .member(member)
+                .user(user)
                 .plogging(plogging)
                 .build();
 
@@ -73,8 +71,8 @@ public class PloggingService {
     }
 
     @Transactional
-    public void deleteJoinPlogging(Member member, int ploggingId){
-        JoinPlogging joinPlogging = joinPloggingRepository.findByMemberIdAndPloggingId(member.getId(), ploggingId)
+    public void deleteJoinPlogging(User user, int ploggingId){
+        JoinPlogging joinPlogging = joinPloggingRepository.findByMemberIdAndPloggingId(user.getId(), ploggingId)
                 .orElseThrow(() -> new BaseException("신청내역에 없습니다.", null, HttpStatus.NOT_FOUND));
 
         joinPloggingRepository.delete(joinPlogging);

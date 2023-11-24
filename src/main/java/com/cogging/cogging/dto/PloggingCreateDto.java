@@ -1,10 +1,8 @@
 package com.cogging.cogging.dto;
 
-import com.cogging.cogging.entity.Community;
-import com.cogging.cogging.entity.Member;
+import com.cogging.cogging.entity.User;
 import com.cogging.cogging.entity.Place;
 import com.cogging.cogging.entity.Plogging;
-import jakarta.validation.constraints.Max;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,9 +25,9 @@ public class PloggingCreateDto {
     private String arrivals;   // 도착지
     private String chatUrl;
 
-    public Plogging toEntity(Member member, Place place){
+    public Plogging toEntity(User user, Place place){
         return Plogging.builder()
-                .member(member)
+                .user(user)
                 .place(place)
                 .title(title)
                 .content(content)

@@ -1,7 +1,7 @@
 package com.cogging.cogging.dto;
 
 import com.cogging.cogging.entity.Community;
-import com.cogging.cogging.entity.Member;
+import com.cogging.cogging.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,13 +18,13 @@ public class CommunityUpdateDto {
     private String title;
     private String content;
 
-    public Community toEntity(Member member){
+    public Community toEntity(User user){
         return Community.builder()
                 .title(title)
                 .content(content)
                 .createdAt(LocalDateTime.now())
                 .comments(0)
-                .member(member)
+                .user(user)
                 .build();
     }
 }

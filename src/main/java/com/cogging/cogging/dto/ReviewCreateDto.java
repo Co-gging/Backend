@@ -1,7 +1,6 @@
 package com.cogging.cogging.dto;
 
-import com.cogging.cogging.entity.Community;
-import com.cogging.cogging.entity.Member;
+import com.cogging.cogging.entity.User;
 import com.cogging.cogging.entity.Place;
 import com.cogging.cogging.entity.Review;
 import lombok.AllArgsConstructor;
@@ -21,10 +20,10 @@ public class ReviewCreateDto {
     private String content;
     private int placeId;
 
-    public Review toEntity(Member member, Place place){
+    public Review toEntity(User user, Place place){
         return Review.builder()
                 .place(place)
-                .member(member)
+                .user(user)
                 .title(title)
                 .content(content)
                 .createdAt(LocalDateTime.now())

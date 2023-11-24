@@ -1,8 +1,5 @@
 package com.cogging.cogging.dto;
 
-import com.cogging.cogging.entity.Member;
-import com.cogging.cogging.entity.Place;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PloggingDto {
-    private MemberDto memberDto;
+    private UserDto userDto;
     private String placeName;
     private String title;
     private String content;

@@ -3,8 +3,6 @@ package com.cogging.cogging.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.io.Serializable;
-
 
 @Entity
 @Table(name = "scrap")
@@ -20,7 +18,7 @@ public class Scrap  {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    private Member member;
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")

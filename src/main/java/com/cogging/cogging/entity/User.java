@@ -1,6 +1,6 @@
 package com.cogging.cogging.entity;
 
-import com.cogging.cogging.dto.MemberDto;
+import com.cogging.cogging.dto.UserDto;
 import jakarta.persistence.Entity;
 import lombok.*;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +21,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Member implements UserDetails {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,8 +44,8 @@ public class Member implements UserDetails {
     @OneToMany(mappedBy = "member")
     private List<Scrap> scraps = new ArrayList<>();
 
-    public MemberDto toDto(){
-        return MemberDto.builder()
+    public UserDto toDto(){
+        return UserDto.builder()
                 .email(email)
                 .nickname(nickname)
                 .profileImage(profileImage)

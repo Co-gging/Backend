@@ -6,7 +6,7 @@ import lombok.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberDto {
+public class UserDto {
     private String email;
     private String nickname;
     private int profileImage;

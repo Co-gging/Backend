@@ -2,18 +2,16 @@ package com.cogging.cogging.service;
 
 import com.cogging.cogging.dto.*;
 import com.cogging.cogging.entity.Community;
-import com.cogging.cogging.entity.Member;
+import com.cogging.cogging.entity.User;
 import com.cogging.cogging.entity.Plogging;
 import com.cogging.cogging.entity.Review;
 import com.cogging.cogging.exceptions.BaseException;
 import com.cogging.cogging.jwt.JwtTokenProvider;
 import com.cogging.cogging.repository.CommunityRepository;
-import com.cogging.cogging.repository.MemberRepository;
+import com.cogging.cogging.repository.UserRepository;
 import com.cogging.cogging.repository.PloggingRepository;
 import com.cogging.cogging.repository.ReviewRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,9 +26,9 @@ import static com.cogging.cogging.exceptions.ExceptionConstants.USER_NOT_FOUND;
 
 @RequiredArgsConstructor
 @Service
-public class MemberService {
+public class UserService {
 
-    private final MemberRepository memberRepository;
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final CommunityRepository communityRepository;
@@ -38,65 +36,65 @@ public class MemberService {
     private final PloggingRepository ploggingRepository;
 
     @Transactional
-    public int signUp(MemberSingUpDto requestDto){
+    public int signUp(UserSignUpDto requestDto){
         if(checkEmail(requestDto.getEmail())){
             throw new BaseException("이미 존재하는 이메일입니다.", null, null);
         }
 
-        Member newMember = memberRepository.save(requestDto.toEntity());
-        newMember.encodePassword(passwordEncoder);
+        User newUser = userRepository.save(requestDto.toEntity());
+        newUser.encodePassword(passwordEncoder);
 
-        return newMember.getId();
+        return newUser.getId();
     }
 
     @Transactional
     public String login(Map<String, String> member) {
-        Member loginMember = memberRepository.findByEmail(member.get("email"))
+        User loginUser = userRepository.findByEmail(member.get("email"))
                 .orElseThrow(() -> new BaseException("존재하지 않는 이메일입니다.", null, HttpStatus.NOT_FOUND));
 
-        if (!passwordEncoder.matches(member.get("password"), loginMember.getPassword())) {
+        if (!passwordEncoder.matches(member.get("password"), loginUser.getPassword())) {
             throw new BaseException("잘못된 비밀번호입니다.", null, null);
         }
 
-        return jwtTokenProvider.createToken(loginMember.getUsername());
+        return jwtTokenProvider.createToken(loginUser.getUsername());
     }
 
     @Transactional
     public boolean checkEmail(String email) {
-        Optional<Member> member = memberRepository.findByEmail(email);
+        Optional<User> member = userRepository.findByEmail(email);
         return member.isPresent();
     }
 
     @Transactional
     public boolean checkNickname(String nickname) {
-        Optional<Member> member = memberRepository.findByNickname(nickname);
+        Optional<User> member = userRepository.findByNickname(nickname);
         return member.isPresent();
     }
 
     @Transactional
-    public MemberDto getMember(int memberId) {
-        Member member = memberRepository.findById(memberId)
+    public UserDto getMember(int memberId) {
+        User user = userRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(USER_NOT_FOUND, null, HttpStatus.NOT_FOUND));
 
-        return member.toDto();
+        return user.toDto();
     }
 
     @Transactional
-    public List<MemberDto> getMemberList() {
+    public List<UserDto> getMemberList() {
         //Sort sort = Sort.by(Sort.Order.asc("id"));
-        List<Member> memberList = memberRepository.findAll();
-        List<MemberDto> memberDtoList = new ArrayList<>();
+        List<User> userList = userRepository.findAll();
+        List<UserDto> userDtoList = new ArrayList<>();
 
-        for (Member member : memberList) {
-            memberDtoList.add(member.toDto());
+        for (User user : userList) {
+            userDtoList.add(user.toDto());
         }
 
-        return memberDtoList;
+        return userDtoList;
     }
 
     @Transactional
-    public List<CommunityDto> getMyCommunity(Member member){
-        List<Community> communities = communityRepository.findByMemberIdOrderByCreatedAtDesc(member.getId());
+    public List<CommunityDto> getMyCommunity(User user){
+        List<Community> communities = communityRepository.findByMemberIdOrderByCreatedAtDesc(user.getId());
         List<CommunityDto> CommunityDtos = new ArrayList<>();
 
         for (Community community : communities) {
@@ -107,8 +105,8 @@ public class MemberService {
     }
 
     @Transactional
-    public List<ReviewDto> getMyReview(Member member){
-        List<Review> reviews = reviewRepository.findByMemberIdOrderByCreatedAtDesc(member.getId());
+    public List<ReviewDto> getMyReview(User user){
+        List<Review> reviews = reviewRepository.findByMemberIdOrderByCreatedAtDesc(user.getId());
         List<ReviewDto> ReviewDtos = new ArrayList<>();
 
         for (Review review : reviews) {
@@ -119,8 +117,8 @@ public class MemberService {
     }
 
     @Transactional
-    public List<PloggingListDto> getMyPlogging(Member member){
-        List<Plogging> ploggings = ploggingRepository.findByMemberIdOrderByCreatedAtDesc(member.getId());
+    public List<PloggingListDto> getMyPlogging(User user){
+        List<Plogging> ploggings = ploggingRepository.findByMemberIdOrderByCreatedAtDesc(user.getId());
         List<PloggingListDto> PloggingDtos = new ArrayList<>();
 
         for (Plogging plogging : ploggings) {

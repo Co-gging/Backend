@@ -3,7 +3,7 @@ package com.cogging.cogging.controller;
 import com.cogging.cogging.dto.CommunityReqDto;
 import com.cogging.cogging.dto.CommunityDto;
 import com.cogging.cogging.dto.CommunityUpdateDto;
-import com.cogging.cogging.entity.Member;
+import com.cogging.cogging.entity.User;
 import com.cogging.cogging.service.CommunityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,8 +21,8 @@ public class CommunityController {
     private final CommunityService communityService;
 
     @PostMapping("/create")
-    public Map<String, Integer> createCommunity(@AuthenticationPrincipal Member member, @RequestBody CommunityReqDto communityReqDto){
-        return Map.of("communityId", communityService.createCommunity(member, communityReqDto));
+    public Map<String, Integer> createCommunity(@AuthenticationPrincipal User user, @RequestBody CommunityReqDto communityReqDto){
+        return Map.of("communityId", communityService.createCommunity(user, communityReqDto));
     }
 
     @GetMapping("/list")
@@ -36,13 +36,13 @@ public class CommunityController {
     }
 
     @PutMapping("/update")
-    public void updateCommunity(@AuthenticationPrincipal Member member, @RequestBody CommunityUpdateDto communityUpdateDto){
-        communityService.updateCommunity(member, communityUpdateDto);
+    public void updateCommunity(@AuthenticationPrincipal User user, @RequestBody CommunityUpdateDto communityUpdateDto){
+        communityService.updateCommunity(user, communityUpdateDto);
     }
 
     @DeleteMapping("/delete")
-    public void deleteCommunity(@AuthenticationPrincipal Member member, @RequestBody Map<String, Integer> communityId){
-        communityService.deleteCommunity(member, communityId.get("id"));
+    public void deleteCommunity(@AuthenticationPrincipal User user, @RequestBody Map<String, Integer> communityId){
+        communityService.deleteCommunity(user, communityId.get("id"));
     }
 
 }

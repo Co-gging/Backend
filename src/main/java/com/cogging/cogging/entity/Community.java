@@ -24,7 +24,7 @@ public class Community {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
-    private Member member;
+    private User user;
 
     private String title;
 
@@ -43,7 +43,7 @@ public class Community {
                 .content(content)
                 .createdAt(createdAt)
                 .comments(comments)
-                .author(member.toDto())
+                .author(user.toDto())
                 .build();
     }
 

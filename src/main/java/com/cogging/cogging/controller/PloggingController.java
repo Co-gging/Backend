@@ -1,8 +1,7 @@
 package com.cogging.cogging.controller;
 
 import com.cogging.cogging.dto.*;
-import com.cogging.cogging.entity.Member;
-import com.cogging.cogging.entity.Plogging;
+import com.cogging.cogging.entity.User;
 import com.cogging.cogging.service.PloggingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,8 +19,8 @@ public class PloggingController {
     private final PloggingService ploggingService;
 
     @PostMapping("/create")
-    public Map<String, Integer> createPlogging(@AuthenticationPrincipal Member member, @RequestBody PloggingCreateDto ploggingCreateDto){
-        return Map.of("ploggingId", ploggingService.createPlogging(member, ploggingCreateDto));
+    public Map<String, Integer> createPlogging(@AuthenticationPrincipal User user, @RequestBody PloggingCreateDto ploggingCreateDto){
+        return Map.of("ploggingId", ploggingService.createPlogging(user, ploggingCreateDto));
     }
 
     @PostMapping("/list")
@@ -35,14 +34,14 @@ public class PloggingController {
     }
 
     @PostMapping("/join")
-    public void joinPlogging(@AuthenticationPrincipal Member member,
+    public void joinPlogging(@AuthenticationPrincipal User user,
                                     @RequestBody Map<String, Integer> ploggingId){
-        ploggingService.joinPlogging(member, ploggingId.get("id"));
+        ploggingService.joinPlogging(user, ploggingId.get("id"));
     }
 
     @DeleteMapping("/join")
-    public void deleteJoinPlogging(@AuthenticationPrincipal Member member,
+    public void deleteJoinPlogging(@AuthenticationPrincipal User user,
                                             @RequestBody Map<String, Integer> ploggingId){
-        ploggingService.deleteJoinPlogging(member, ploggingId.get("id"));
+        ploggingService.deleteJoinPlogging(user, ploggingId.get("id"));
     }
 }

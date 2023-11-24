@@ -1,6 +1,5 @@
 package com.cogging.cogging.entity;
 
-import com.cogging.cogging.dto.PlaceDto;
 import com.cogging.cogging.dto.PloggingDto;
 import com.cogging.cogging.dto.PloggingListDto;
 import jakarta.persistence.*;
@@ -26,7 +25,7 @@ public class Plogging {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "author_id")
-    private Member member;
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
@@ -54,7 +53,7 @@ public class Plogging {
 
     public PloggingDto toDto(){
         return PloggingDto.builder()
-                .memberDto(member.toDto())
+                .userDto(user.toDto())
                 .placeName(place.getName())
                 .title(title)
                 .content(content)
@@ -71,7 +70,7 @@ public class Plogging {
     public PloggingListDto toListDto(){
         return PloggingListDto.builder()
                 .id(id)
-                .memberDto(member.toDto())
+                .userDto(user.toDto())
                 .placeName(place.getName())
                 .title(title)
                 .ploggingDate(ploggingDate)

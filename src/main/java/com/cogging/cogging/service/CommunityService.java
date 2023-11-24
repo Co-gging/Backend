@@ -4,10 +4,9 @@ import com.cogging.cogging.dto.CommunityReqDto;
 import com.cogging.cogging.dto.CommunityDto;
 import com.cogging.cogging.dto.CommunityUpdateDto;
 import com.cogging.cogging.entity.Community;
-import com.cogging.cogging.entity.Member;
+import com.cogging.cogging.entity.User;
 import com.cogging.cogging.exceptions.BaseException;
 import com.cogging.cogging.repository.CommunityRepository;
-import com.cogging.cogging.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -24,8 +23,8 @@ public class CommunityService {
     private final CommunityRepository communityRepository;
 
     @Transactional
-    public int createCommunity(Member member, CommunityReqDto communityReqDto){
-        Community community = communityReqDto.toEntity(member);
+    public int createCommunity(User user, CommunityReqDto communityReqDto){
+        Community community = communityReqDto.toEntity(user);
         return communityRepository.save(community).getId();
     }
 
@@ -51,11 +50,11 @@ public class CommunityService {
     }
 
     @Transactional
-    public void updateCommunity(Member member, CommunityUpdateDto communityUpdateDto){
+    public void updateCommunity(User user, CommunityUpdateDto communityUpdateDto){
         Community community = communityRepository.findById(communityUpdateDto.getId())
                 .orElseThrow(() -> new BaseException("존재하지 않는 글입니다.", null, HttpStatus.NOT_FOUND));
 
-        if(community.getMember().getId() != member.getId()){
+        if(community.getUser().getId() != user.getId()){
             throw new BaseException("작성자만 수정이 가능합니다.", null, HttpStatus.FORBIDDEN);
         }
 
@@ -64,11 +63,11 @@ public class CommunityService {
     }
 
     @Transactional
-    public void deleteCommunity(Member member, int id){
+    public void deleteCommunity(User user, int id){
         Community community = communityRepository.findById(id)
                 .orElseThrow(() -> new BaseException("존재하지 않는 글입니다.", null, HttpStatus.NOT_FOUND));
 
-        if(community.getMember().getId() != member.getId()){
+        if(community.getUser().getId() != user.getId()){
             throw new BaseException("작성자만 수정이 가능합니다.", null, HttpStatus.FORBIDDEN);
         }
 

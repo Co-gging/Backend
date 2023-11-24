@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class PloggingListDto {
     private int id;
-    private MemberDto memberDto;
+    private UserDto userDto;
     private String placeName;
     private String title;
     private LocalDateTime ploggingDate; // 플로깅 시간
