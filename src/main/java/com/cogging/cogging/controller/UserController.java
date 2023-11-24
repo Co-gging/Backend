@@ -18,6 +18,8 @@ public class UserController {
 
     private final UserService userService;
 
+    /** 로그인, 회원가입 관련 api **/
+
     @PostMapping("/signup")
     public Map<String, Integer> signup(@RequestBody UserSignUpDto memberSingUpDto){
         return Map.of("memberId", userService.signUp(memberSingUpDto));
@@ -28,14 +30,14 @@ public class UserController {
         return Map.of("token", userService.login(member));
     }
 
-    @PostMapping("/check-email")
-    public Map<String, Boolean> checkEmail(@RequestBody Map<String, String> validEmail){
-        return Map.of("isExist", userService.checkEmail(validEmail.get("email")));
+    @PostMapping("/check-email/{email}")
+    public Map<String, Boolean> checkEmail(@PathVariable String email){
+        return Map.of("isExist", userService.checkEmail(email));
     }
 
-    @PostMapping("/check-nickname")
-    public Map<String, Boolean> checkNickname(@RequestBody Map<String, String> validNickname){
-        return Map.of("isExist", userService.checkNickname(validNickname.get("nickname")));
+    @PostMapping("/check-nickname/{nickname}")
+    public Map<String, Boolean> checkNickname(@PathVariable String nickname){
+        return Map.of("isExist", userService.checkNickname(nickname));
     }
 
     /** 유저 관련 api **/

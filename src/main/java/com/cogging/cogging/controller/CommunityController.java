@@ -21,7 +21,8 @@ public class CommunityController {
     private final CommunityService communityService;
 
     @PostMapping("/create")
-    public Map<String, Integer> createCommunity(@AuthenticationPrincipal User user, @RequestBody CommunityReqDto communityReqDto){
+    public Map<String, Integer> createCommunity(@AuthenticationPrincipal User user,
+                                                @RequestBody CommunityReqDto communityReqDto){
         return Map.of("communityId", communityService.createCommunity(user, communityReqDto));
     }
 
